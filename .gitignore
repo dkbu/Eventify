@@ -1,0 +1,48 @@
+# Dependencies
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Runtime data
+pids/
+*.pid
+*.pid.lock
+
+# Coverage
+coverage/
+*.lcov
+
+# Build output
+dist/
+build/
+out/
+
+# Temporary files
+.tmp/
+.temp/
+tmp/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Editor directories and files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Firefox extension packaging artifacts
+*.xpi
+.web-ext-artifacts/
