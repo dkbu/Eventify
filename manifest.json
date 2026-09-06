@@ -3,9 +3,9 @@
   "name": "Eventify",
   "version": "0.1.0",
   "description": "Adds a context-menu action for selected text in Firefox.",
-  "permissions": ["contextMenus", "notifications"],
+  "permissions": ["activeTab", "contextMenus"],
   "background": {
-    "scripts": ["node_modules/moment/min/moment.min.js", "src/background.js"]
+    "scripts": ["src/vendor/chrono.js", "src/background.js"]
   },
   "browser_specific_settings": {
     "gecko": {

@@ -1,0 +1,88 @@
+#eventify-event-form {
+  position: fixed;
+  z-index: 2147483647;
+  top: 24px;
+  right: 24px;
+  width: min(360px, calc(100vw - 32px));
+  color: #202124;
+  font: 14px/1.4 system-ui, sans-serif;
+}
+
+#eventify-event-form .eventify-panel {
+  background: #fff;
+  border: 1px solid #c9ced6;
+  border-radius: 8px;
+  box-shadow: 0 16px 44px rgba(0, 0, 0, 0.24);
+  padding: 20px;
+}
+
+#eventify-event-form header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+#eventify-event-form h2 {
+  font-size: 18px;
+  margin: 0;
+}
+
+#eventify-event-form label {
+  display: block;
+  font-weight: 600;
+  margin: 12px 0 5px;
+}
+
+#eventify-event-form input,
+#eventify-event-form textarea {
+  box-sizing: border-box;
+  border: 1px solid #8a929e;
+  border-radius: 4px;
+  font: inherit;
+  padding: 8px;
+  width: 100%;
+}
+
+#eventify-event-form textarea {
+  min-height: 88px;
+  resize: vertical;
+}
+
+#eventify-event-form .eventify-row {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr 1fr;
+}
+
+#eventify-event-form footer {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 18px;
+}
+
+#eventify-event-form button {
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
+  font: inherit;
+  padding: 8px 12px;
+}
+
+#eventify-event-form .eventify-close {
+  background: transparent;
+  font-size: 22px;
+  line-height: 1;
+  padding: 0 4px;
+}
+
+#eventify-event-form .eventify-cancel {
+  background: #e9edf2;
+  color: #202124;
+}
+
+#eventify-event-form .eventify-save {
+  background: #0069c9;
+  color: #fff;
+}

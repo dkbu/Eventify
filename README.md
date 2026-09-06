@@ -2,16 +2,11 @@
 
 This scaffold creates a basic Firefox add-on that finds dates in selected text using a right-click context menu.
 
-## Why JavaScript instead of Python?
-
-Firefox add-ons run in the browser extension runtime, which natively uses JavaScript APIs (`browser.*`).
-Using Python directly inside a Firefox extension would be awkward and non-standard, so this starter uses JavaScript.
-
 ## Features
 
 - Adds a context menu item named **Find dates in selected text**
 - Appears when text is selected
-- Uses Moment.js to parse dates and shows matches in a Firefox notification
+- Uses Chrono to parse dates and shows matches in a Firefox notification
 - Supports partial dates containing month/day and assumes the current year
 
 ## Project Structure

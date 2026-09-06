@@ -1,5 +1,17 @@
 {
+  "scripts": {
+    "build": "esbuild node_modules/chrono-node/dist/esm/index.js --bundle --format=iife --global-name=chrono --outfile=src/vendor/chrono.js && esbuild node_modules/ics/dist/index.js --bundle --format=iife --global-name=ics --outfile=src/vendor/ics.js"
+  },
   "dependencies": {
+    "chrono-node": "^2.10.1",
+    "ics": "^3.12.0",
     "moment": "^2.30.1"
+  },
+  "devDependencies": {
+    "@types/node": "^26.4.1",
+    "esbuild": "^0.28.2"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true
   }
 }
