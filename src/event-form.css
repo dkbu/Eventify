@@ -3,7 +3,8 @@
   z-index: 2147483647;
   top: 24px;
   right: 24px;
-  width: min(360px, calc(100vw - 32px));
+  bottom: 24px;
+  width: min(680px, calc(100vw - 32px));
   color: #202124;
   font: 14px/1.4 system-ui, sans-serif;
 }
@@ -13,6 +14,10 @@
   border: 1px solid #c9ced6;
   border-radius: 8px;
   box-shadow: 0 16px 44px rgba(0, 0, 0, 0.24);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   padding: 20px;
 }
 
@@ -28,6 +33,14 @@
   margin: 0;
 }
 
+#eventify-event-form form {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+  overflow-y: auto;
+}
+
 #eventify-event-form label {
   display: block;
   font-weight: 600;
@@ -35,6 +48,7 @@
 }
 
 #eventify-event-form input,
+#eventify-event-form select,
 #eventify-event-form textarea {
   box-sizing: border-box;
   border: 1px solid #8a929e;
@@ -55,11 +69,44 @@
   grid-template-columns: 1fr 1fr;
 }
 
+#eventify-event-form .eventify-optional-fields {
+  display: grid;
+  gap: 12px;
+}
+
+#eventify-event-form .eventify-optional-field {
+  align-items: center;
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 120px minmax(0, 1fr) auto minmax(0, 1fr);
+}
+
+#eventify-event-form .eventify-optional-field > label {
+  margin: 0;
+}
+
+#eventify-event-form .eventify-optional-field .eventify-manual-toggle {
+  align-items: center;
+  display: flex;
+  gap: 5px;
+  white-space: nowrap;
+}
+
+#eventify-event-form .eventify-optional-field .eventify-manual-toggle input {
+  margin: 0;
+  padding: 0;
+  width: auto;
+}
+
 #eventify-event-form footer {
+  background: #fff;
   display: flex;
   gap: 8px;
   justify-content: flex-end;
   margin-top: 18px;
+  padding-top: 12px;
+  position: sticky;
+  bottom: 0;
 }
 
 #eventify-event-form button {
@@ -85,4 +132,11 @@
 #eventify-event-form .eventify-save {
   background: #0069c9;
   color: #fff;
+}
+
+@media (max-width: 600px) {
+  #eventify-event-form .eventify-optional-field {
+    align-items: stretch;
+    grid-template-columns: 1fr;
+  }
 }

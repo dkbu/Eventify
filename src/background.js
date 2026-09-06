@@ -42,10 +42,15 @@ function findPLZ(text) {
   return results || [];
 }
 
+function findOrganizerEmail(text) {
+  const results = text.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/);
+  return results || [];
+}
+
 browser.runtime.onInstalled.addListener(() => {
   browser.contextMenus.create({
     id: MENU_ID,
-    title: "Find dates in selected text",
+    title: "Generate Calendar Event",
     contexts: ["selection"]
   });
 });
@@ -83,7 +88,8 @@ browser.contextMenus.onClicked.addListener((info, tab) => {
     times: datesAndTimes.times,
     description: selection,
     location: address,
-    plz: plz
+    plz: plz,
+    organizerEmail: findOrganizerEmail(selection)
   };
 
   if (!tab || !tab.id) {
