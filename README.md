@@ -1,18 +1,20 @@
 # Eventify (Firefox Add-on)
 
-This scaffold creates a basic Firefox add-on that finds dates in selected text using a right-click context menu.
+This Firefox add-on allows generating a calendar event (in the form of an ics file).
+
+Download here: https://addons.mozilla.org/en-US/firefox/addon/eventify/
 
 ## Features
 
-- Adds a context menu item named **Find dates in selected text**
-- Appears when text is selected
-- Uses Chrono to parse dates and shows matches in a Firefox notification
-- Supports partial dates containing month/day and assumes the current year
+- Recognizes dates and times in the text
+- Allows use of text data or manually adding
 
 ## Project Structure
 
 - `manifest.json`: Firefox extension manifest
-- `src/background.js`: Background script with context-menu behavior
+- `src/background.js`: Background script with context-menu behavior, locates data in selected text
+- `src/event-form.js`: Displays the event generation form
+- `src/save-event.js`: Saves the form's entries into an ics file
 
 ## Run Locally in Firefox
 

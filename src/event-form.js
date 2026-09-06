@@ -17,14 +17,31 @@
     } else {
       fieldNameSeparated = fieldNameSeparated.slice(0, firstCapitalIndex) + " " + fieldNameSeparated.charAt(firstCapitalIndex).toUpperCase() + fieldNameSeparated.slice(firstCapitalIndex + 1);
     }
-    return `
-      <div class="eventify-optional-field">
-        <label for="eventify-${fieldName}">${fieldNameSeparated}</label>
-        <select id="eventify-${fieldName}" name="${fieldName}"></select>
-        <label class="eventify-manual-toggle"><input type="checkbox" name="manual${fieldName}"> Insert manually</label>
-        <input type="text" name="manual${fieldName}Value" style="display:none">
-      </div>
-    `;
+    const wrapper = document.createElement("div");
+    wrapper.className = "eventify-optional-field";
+
+    const label = document.createElement("label");
+    label.htmlFor = `eventify-${fieldName}`;
+    label.textContent = fieldNameSeparated;
+
+    const select = document.createElement("select");
+    select.id = `eventify-${fieldName}`;
+    select.name = fieldName;
+
+    const manualLabel = document.createElement("label");
+    manualLabel.className = "eventify-manual-toggle";
+    const manualCheckbox = document.createElement("input");
+    manualCheckbox.type = "checkbox";
+    manualCheckbox.name = `manual${fieldName}`;
+    manualLabel.append(manualCheckbox, " Insert manually");
+
+    const manualInput = document.createElement("input");
+    manualInput.type = "text";
+    manualInput.name = `manual${fieldName}Value`;
+    manualInput.style.display = "none";
+
+    wrapper.append(label, select, manualLabel, manualInput);
+    return wrapper;
   }
 
   function addOptions(select, values) {
@@ -78,18 +95,55 @@
 
     const container = document.createElement("div");
     container.id = formId;
-    container.innerHTML = `
-      <section class="eventify-panel" role="dialog" aria-modal="true" aria-labelledby="eventify-title">
-        <header><h2 id="eventify-title">Create Event</h2><button class="eventify-close" type="button" aria-label="Close">&times;</button></header>
-        <form>
-          <div class="eventify-optional-fields">${manualOptionalFieldElements.join("")}</div>
-          <label>Topic<input name="topic" type="text"></label>
-          <label>Description<textarea name="description"></textarea></label>
-          <footer><button class="eventify-cancel" type="button">Cancel</button><button class="eventify-save" type="submit">Save</button></footer>
-        </form>
-      </section>`;
+    const panel = document.createElement("section");
+    panel.className = "eventify-panel";
+    panel.setAttribute("role", "dialog");
+    panel.setAttribute("aria-modal", "true");
+    panel.setAttribute("aria-labelledby", "eventify-title");
 
-    const form = container.querySelector("form");
+    const header = document.createElement("header");
+    const title = document.createElement("h2");
+    title.id = "eventify-title";
+    title.textContent = "Create Event";
+    const closeButton = document.createElement("button");
+    closeButton.className = "eventify-close";
+    closeButton.type = "button";
+    closeButton.setAttribute("aria-label", "Close");
+    closeButton.textContent = "\u00d7";
+    header.append(title, closeButton);
+
+    const form = document.createElement("form");
+    const optionalFields = document.createElement("div");
+    optionalFields.className = "eventify-optional-fields";
+    optionalFields.append(...manualOptionalFieldElements);
+
+    const topicLabel = document.createElement("label");
+    topicLabel.textContent = "Topic";
+    const topicInput = document.createElement("input");
+    topicInput.name = "topic";
+    topicInput.type = "text";
+    topicLabel.appendChild(topicInput);
+
+    const descriptionLabel = document.createElement("label");
+    descriptionLabel.textContent = "Description";
+    const descriptionInput = document.createElement("textarea");
+    descriptionInput.name = "description";
+    descriptionLabel.appendChild(descriptionInput);
+
+    const footer = document.createElement("footer");
+    const cancelButton = document.createElement("button");
+    cancelButton.className = "eventify-cancel";
+    cancelButton.type = "button";
+    cancelButton.textContent = "Cancel";
+    const saveButton = document.createElement("button");
+    saveButton.className = "eventify-save";
+    saveButton.type = "submit";
+    saveButton.textContent = "Save";
+    footer.append(cancelButton, saveButton);
+
+    form.append(optionalFields, topicLabel, descriptionLabel, footer);
+    panel.append(header, form);
+    container.appendChild(panel);
     form.elements.description.value = details.description || "";
     addOptions(form.elements.location, details.location || []);
     addOptions(form.elements.plz, details.plz || []);

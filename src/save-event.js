@@ -18,7 +18,7 @@ window.EventifySaveEvent = window.EventifySaveEvent || {
         console.error(error);
         return;
       }
-      console.log(value);
+      
       const blob = new Blob([value], { type: "text/calendar" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");

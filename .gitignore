@@ -46,3 +46,4 @@ Thumbs.db
 # Firefox extension packaging artifacts
 *.xpi
 .web-ext-artifacts/
+Eventify.zip
