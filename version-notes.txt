@@ -1,0 +1,7 @@
+0.1.2
+
+- Changed event form opacity
+
+TODO:
+
+- make sure LTR languages are also supported
