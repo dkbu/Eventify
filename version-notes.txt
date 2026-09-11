@@ -1,7 +1,10 @@
 0.1.2
+- Form opacity at 50%
+- Can save multiple events into one file
 
-- Changed event form opacity
 
 TODO:
 
 - make sure LTR languages are also supported
+- Make event form opacity variable
+- Custom name multi-event file 

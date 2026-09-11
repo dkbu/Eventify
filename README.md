@@ -16,6 +16,9 @@ Download here: https://addons.mozilla.org/en-US/firefox/addon/eventify/
 - `src/event-form.js`: Displays the event generation form
 - `src/save-event.js`: Saves the form's entries into an ics file
 
+## Build
+1. `npm run build`
+
 ## Run Locally in Firefox
 
 1. Open Firefox.

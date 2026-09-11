@@ -81,6 +81,7 @@
   function show(details) {
     closeForm();
 
+    let eventList = [];
     const manualOptionalFields = ["date", "time", "endDate", "endTime", "location", "plz", "organizerEmail"];
     const manualOptionalFieldElements = manualOptionalFields.map(fieldName => createOptionallyManualField(fieldName));
     const manualOptions = {
@@ -112,10 +113,45 @@
     closeButton.textContent = "\u00d7";
     header.append(title, closeButton);
 
+    const savedEvents = document.createElement("div");
+    savedEvents.className = "eventify-saved-events";
+
     const form = document.createElement("form");
     const optionalFields = document.createElement("div");
     optionalFields.className = "eventify-optional-fields";
     optionalFields.append(...manualOptionalFieldElements);
+
+    function addEvent() {
+      const eventDetails = Object.fromEntries(new FormData(form));
+      if (eventDetails && eventDetails.topic) {
+        eventList.push(eventDetails);
+      }
+      return eventDetails;
+    }
+
+    function addEventToList() {
+      const eventDetails = addEvent();
+      if (!eventDetails || !eventDetails.topic) {
+        console.warn("Event details are missing or topic is empty.");
+        return;
+      }
+      const eventItem = document.createElement("div");
+      eventItem.className = "eventify-saved-event";
+      eventItem.textContent = `${eventDetails.topic || ""}`;
+
+      const deleteButton = document.createElement("button");
+      deleteButton.className = "eventify-delete";
+      deleteButton.type = "button";
+      deleteButton.textContent = "Delete";
+      deleteButton.addEventListener("click", () => {
+        eventList = eventList.filter(e => e !== eventDetails);
+        savedEvents.removeChild(eventItem);
+      });
+      eventItem.appendChild(deleteButton);
+      
+      savedEvents.appendChild(eventItem);
+      form.reset();
+    }
 
     const topicLabel = document.createElement("label");
     topicLabel.textContent = "Topic";
@@ -135,26 +171,33 @@
     cancelButton.className = "eventify-cancel";
     cancelButton.type = "button";
     cancelButton.textContent = "Cancel";
+    const addEventButton = document.createElement("button");
+    addEventButton.className = "eventify-add-event";
+    addEventButton.type = "button";
+    addEventButton.textContent = "+";
     const saveButton = document.createElement("button");
     saveButton.className = "eventify-save";
     saveButton.type = "submit";
     saveButton.textContent = "Save";
-    footer.append(cancelButton, saveButton);
+    footer.append(cancelButton, addEventButton, saveButton);
 
     form.append(optionalFields, topicLabel, descriptionLabel, footer);
-    panel.append(header, form);
+    panel.append(header, savedEvents, form);
     container.appendChild(panel);
     form.elements.description.value = details.description || "";
     addOptions(form.elements.location, details.location || []);
     addOptions(form.elements.plz, details.plz || []);
     container.querySelector(".eventify-close").addEventListener("click", closeForm);
     container.querySelector(".eventify-cancel").addEventListener("click", closeForm);
+    container.querySelector(".eventify-add-event").addEventListener("click", () => {
+      addEventToList();
+    });
     form.addEventListener("submit", event => {
       event.preventDefault();
-      const eventDetails = Object.fromEntries(new FormData(form));
+      addEvent();
       browser.runtime.sendMessage({
         type: "eventify-save-event",
-        eventDetails
+        eventList: eventList
       }).then(closeForm);
     });
     document.documentElement.appendChild(container);

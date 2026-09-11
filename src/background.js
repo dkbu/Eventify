@@ -60,7 +60,7 @@ browser.runtime.onMessage.addListener((message, sender) => {
     return;
   }
 
-  const eventDetails = JSON.stringify(message.eventDetails);
+  const eventDetails = JSON.stringify(message.eventList);
   return browser.tabs.executeScript(sender.tab.id, { file: "src/vendor/ics.js" })
   .then(() => browser.tabs.executeScript(sender.tab.id, { file: "src/vendor/chrono.js" }))
   .then(() => browser.tabs.executeScript(sender.tab.id, { file: "src/save-event.js" }))
