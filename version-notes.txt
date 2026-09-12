@@ -1,3 +1,7 @@
+0.1.2.1
+
+- fiddle with permissions
+
 0.1.2
 - Form opacity at 50%
 - Can save multiple events into one file

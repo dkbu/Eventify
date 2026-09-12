@@ -60,11 +60,13 @@ browser.runtime.onMessage.addListener((message, sender) => {
     return;
   }
 
+  const options = sender.frameId !== undefined ? { frameId: sender.frameId } : {};
   const eventDetails = JSON.stringify(message.eventList);
-  return browser.tabs.executeScript(sender.tab.id, { file: "src/vendor/ics.js" })
-  .then(() => browser.tabs.executeScript(sender.tab.id, { file: "src/vendor/chrono.js" }))
-  .then(() => browser.tabs.executeScript(sender.tab.id, { file: "src/save-event.js" }))
+  return browser.tabs.executeScript(sender.tab.id, { ...options, file: "src/vendor/ics.js" })
+  .then(() => browser.tabs.executeScript(sender.tab.id, { ...options, file: "src/vendor/chrono.js" }))
+  .then(() => browser.tabs.executeScript(sender.tab.id, { ...options, file: "src/save-event.js" }))
   .then(() => browser.tabs.executeScript(sender.tab.id, {
+    ...options,
     code: `window.EventifySaveEvent.save(${eventDetails});`
   }))
   .catch(error => console.error("Unable to save Eventify event:", error));  
@@ -96,11 +98,14 @@ browser.contextMenus.onClicked.addListener((info, tab) => {
     return;
   }
 
+  const execOptions = info.frameId !== undefined ? { frameId: info.frameId } : {};
+
   Promise.all([
-    browser.tabs.insertCSS(tab.id, { file: "src/event-form.css" }),
-    browser.tabs.executeScript(tab.id, { file: "src/event-form.js" })
+    browser.tabs.insertCSS(tab.id, { ...execOptions, file: "src/event-form.css" }),
+    browser.tabs.executeScript(tab.id, { ...execOptions, file: "src/event-form.js" })
   ])
     .then(() => browser.tabs.executeScript(tab.id, {
+      ...execOptions,
       code: `window.EventifyForm.show(${JSON.stringify(eventDetails)});`
     }))
     .catch(error => console.error("Unable to show Eventify form:", error));

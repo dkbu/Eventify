@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
   "name": "Eventify",
-  "version": "0.1.2",
+  "version": "0.1.2.1",
   "description": "Firefox addon to generate calendar events.",
-  "permissions": ["activeTab", "contextMenus"],
+  "permissions": ["<all_urls>", "activeTab", "contextMenus"],
   "background": {
     "scripts": ["src/vendor/chrono.js", "src/background.js"]
   },
